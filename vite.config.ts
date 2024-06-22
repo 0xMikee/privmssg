@@ -7,21 +7,21 @@ import { flatRoutes } from "remix-flat-routes";
 installGlobals();
 
 export default defineConfig({
-  plugins: [
-    remix({
-      ignoredRouteFiles: ["**/*"],
-      serverModuleFormat: "esm",
-      routes: async (defineRoutes) => {
-        return flatRoutes("routes", defineRoutes, {
-          ignoredRouteFiles: [
-            ".*",
-            "**/*.css",
-            "**/*.test.{js,jsx,ts,tsx}",
-            "**/__*.*",
-          ],
-        });
-      },
-    }),
-    tsconfigPaths(),
-  ],
+	plugins: [
+		remix({
+			ignoredRouteFiles: ["**/*"],
+			serverModuleFormat: "esm",
+			routes: async (defineRoutes) => {
+				return flatRoutes("routes", defineRoutes, {
+					ignoredRouteFiles: [
+						".*",
+						"**/*.css",
+						"**/*.test.{js,jsx,ts,tsx}",
+						"**/__*.*",
+					],
+				});
+			},
+		}),
+		tsconfigPaths(),
+	],
 });

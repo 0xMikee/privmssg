@@ -1,18 +1,16 @@
-import styles from "./Layout.module.scss"
-import {ReactNode} from "react";
+import styles from "./Layout.module.scss";
+import type { ReactNode } from "react";
 
 export type LayoutProps = {
-    children: ReactNode
-}
+	children: ReactNode;
+};
 
-const Layout = ({children}: LayoutProps) => {
-    return (
-        <main className={styles.main}>
-            <div className={styles.content}>
-                {children}
-            </div>
-        </main>
-    )
+const Layout = ({ children }: LayoutProps) => {
+	return (
+		<main className={styles.main}>
+			<div className={styles.content}>{children}</div>
+		</main>
+	);
 };
 
 export default Layout;

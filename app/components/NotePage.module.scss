@@ -1,0 +1,19 @@
+.notePage {
+  display: grid;
+}
+
+.header {
+  display: flex;
+}
+
+.content {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.notes {
+  display: flex;
+  gap: 8px;
+}

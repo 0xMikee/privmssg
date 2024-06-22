@@ -1,32 +1,22 @@
-import {Link, useLoaderData} from "@remix-run/react";
-import { json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { json, type LoaderFunction } from "@remix-run/node";
 import { prisma } from "~/utils/prisma.server";
-import {Button} from "@nextui-org/react";
+import NotePage from "~/components/NotePage";
 
 export const loader: LoaderFunction = async () => {
-    const notes = await prisma.note.findMany({
-        orderBy: {
-            createdAt: 'desc',
-        },
-    });
+	const notes = await prisma.note.findMany({
+		orderBy: {
+			createdAt: "desc",
+		},
+	});
 
-    return json({ notes });
+	return json({ notes });
 };
 
-export default function NotesIndex() {
-    const { notes } = useLoaderData<typeof loader>();
+const NotesIndex = () => {
+	const { notes } = useLoaderData<typeof loader>();
 
-    return (
-        <div>
-            <h1>Notes</h1>
-            <Link to="/notes/new"><Button color="success" size="sm">Create New Note</Button></Link>
-            <ul>
-                {notes.map((note) => (
-                    <Link to={`/notes/${note.id}`} key={note.id}>
-                        <Button size="sm" variant="bordered">{note.title}</Button>
-                    </Link>
-                ))}
-            </ul>
-        </div>
-    );
-}
+	return <NotePage notes={notes} />;
+};
+
+export default NotesIndex;

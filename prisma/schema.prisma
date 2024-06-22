@@ -14,5 +14,5 @@ model Note {
   expiryDate              DateTime?
   createdAt               DateTime  @default(now())
   password                String?
-  shouldExpireAfterViewing Boolean  @default(false) // New field
+  shouldExpireAfterViewing Boolean  @default(false)
 }
