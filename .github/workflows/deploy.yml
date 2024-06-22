@@ -21,18 +21,13 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+      - name: ⎔ Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+          bun-version: latest
 
       - name: 🔬 Biome Lint
-        run: bun run lint
+        run: bunx @biomejs/biome lint ./ --write
 
   typecheck:
     name: ʦ TypeScript
@@ -44,18 +39,31 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+      - name: ⎔ Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+          bun-version: latest
 
       - name: 🔎 Type check
-        run: bun run typecheck --if-present
+        run: bunx tsc --noEmit
+
+  vitest:
+    name: ⚡ Vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: ⚡ Run vitest
+        run: bun run test -- --coverage
 
   build:
     name: 🐳 Build
