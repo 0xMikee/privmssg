@@ -19,7 +19,7 @@ export default function NotesIndex() {
     return (
         <div>
             <h1>Notes</h1>
-            <Link to="/notes/new">Create New Note</Link>
+            <Link to="/notes/new"><Button color="success" size="sm">Create New Note</Button></Link>
             <ul>
                 {notes.map((note) => (
                     <Link to={`/notes/${note.id}`} key={note.id}>
