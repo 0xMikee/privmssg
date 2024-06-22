@@ -6,43 +6,42 @@ FROM oven/bun:${BUN_VERSION}-slim as base
 
 LABEL fly_launch_runtime="Remix/Prisma"
 
-# Remix/Prisma app lives here
+# Working directory
 WORKDIR /app
 
-# Set production environment
+# Set environment variables
 ENV NODE_ENV="production"
-
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential openssl pkg-config python-is-python3
+    apt-get install --no-install-recommends -y build-essential openssl pkg-config python-is-python3 && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install node modules
-COPY --link bun.lockb package.json ./
+COPY bun.lockb package.json ./
 RUN bun install
 
 # Generate Prisma Client
-COPY --link prisma .
+COPY prisma ./
 RUN bunx prisma generate
 
 # Copy application code
-COPY --link . .
+COPY . .
 
 # Build application
 RUN bun run build
 
-# Remove development dependencies
+# Remove development dependencies and install only production dependencies
 RUN rm -rf node_modules && \
     bun install --ci
 
-
-# Final stage for app image
+# Final stage for the application image
 FROM base
 
-# Install packages needed for deployment
+# Install runtime packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y openssl sqlite3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
@@ -50,20 +49,22 @@ RUN apt-get update -qq && \
 # Copy built application
 COPY --from=build /app /app
 
-# Setup sqlite3 on a separate volume
+# Ensure /data directory exists and is used for volume
 RUN mkdir -p /data
 VOLUME /data
 
-# add shortcut for connecting to database CLI
+# Add a shortcut for the database CLI
 RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 
-# Ensure docker-entrypoint.js is executable
+# Ensure the entrypoint script is executable
 RUN chmod +x /app/docker-entrypoint.js
 
-# Entrypoint prepares the database.
-ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+# Set the entry point and command
+ENTRYPOINT ["/app/docker-entrypoint.js"]
+CMD ["bun", "run", "start"]
 
-# Start the server by default, this can be overwritten at runtime
+# Expose the application port
 EXPOSE 3000
+
+# Set environment variables for the application
 ENV DATABASE_URL="file:///data/sqlite.db"
-CMD [ "bun", "run", "start" ]
