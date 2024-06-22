@@ -1,0 +1,18 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Note {
+  id                      String    @id @default(cuid())
+  title                   String
+  content                 String
+  expiryDate              DateTime?
+  createdAt               DateTime  @default(now())
+  password                String?
+  shouldExpireAfterViewing Boolean  @default(false) // New field
+}

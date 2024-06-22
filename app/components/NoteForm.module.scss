@@ -1,0 +1,16 @@
+.noteForm {
+  display: grid;
+  gap: 12px;
+}
+
+.select {
+  border-color: blue;
+}
+
+.textArea {
+  resize: vertical;
+
+  div {
+    min-height: 420px;
+  }
+}
