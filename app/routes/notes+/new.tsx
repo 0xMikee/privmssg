@@ -1,5 +1,4 @@
 import { redirect } from "@remix-run/node";
-import React from "react";
 import NoteForm from "~/components/NoteForm";
 import { prisma } from "~/utils/prisma.server";
 import type { ActionFunction } from "@remix-run/node";

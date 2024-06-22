@@ -8,7 +8,7 @@ const HomePage = () => {
 		<div className={styles.homePage}>
 			<Link to="/notes">
 				<Button
-					startContent={<Icon id={IconId.NOTE} width={20} />}
+					startContent={<Icon id={IconId.NOTE} className={styles.noteIcon} />}
 					variant="bordered"
 					size="sm"
 				>

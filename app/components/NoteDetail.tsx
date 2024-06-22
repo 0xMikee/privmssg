@@ -177,13 +177,13 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 
 			{isPasswordCorrect && !isConfirmOpen && (
 				<div className={styles.noteDetail}>
-					<Input readOnly label="Title" value={note.title} />
-					<Textarea readOnly label="Description" value={note.content} />
+					<Input readOnly={true} label="Title" value={note.title} />
+					<Textarea readOnly={true} label="Description" value={note.content} />
 					{note.shouldExpireAfterViewing ? (
-						<Input isReadOnly label="Expires:" placeholder="Now" />
+						<Input isReadOnly={true} label="Expires:" placeholder="Now" />
 					) : (
 						<Input
-							isReadOnly
+							isReadOnly={true}
 							label="Expires:"
 							defaultValue={
 								note.expiryDate

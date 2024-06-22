@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Input, Textarea, Button } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Icon, IconId } from "~/components/Icon";
@@ -28,10 +28,10 @@ const NoteForm = () => {
 				variant="bordered"
 				value={title}
 				onChange={(e) => setTitle(e.target.value)}
-				required
+				required={true}
 			/>
 			<Textarea
-				required
+				required={true}
 				size="sm"
 				name="description"
 				label="Description"
@@ -51,13 +51,13 @@ const NoteForm = () => {
 				onChange={(e) => setPassword(e.target.value)}
 			/>
 			<Select
-				required
+				required={true}
 				size="sm"
 				name="expires_after"
 				label="Expires after:"
 				className={styles.select}
 				placeholder="Select expiration time"
-				startContent={<Icon id={IconId.TIME} width={20} height={20} />}
+				startContent={<Icon id={IconId.TIME} className={styles.timeIcon} />}
 				onSelectionChange={(selectedKeys) => {
 					const selectedKey = Array.from(selectedKeys).join("");
 					setExpiration(selectedKey);

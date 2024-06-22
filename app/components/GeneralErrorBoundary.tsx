@@ -25,6 +25,11 @@ export const GeneralErrorBoundary = ({
 
 	if (isRouteErrorResponse(error)) {
 		const handler = statusHandlers?.[error.status];
-		return handler({ error, params });
+		if (handler) {
+			return handler({ error, params });
+		}
+		return <div>Unhandled error: {error.status}</div>;
 	}
+
+	return <div>Unknown error occurred.</div>;
 };

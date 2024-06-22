@@ -1,7 +1,7 @@
-import type { SVGProps } from "react";
+import type {FC, SVGProps} from "react";
 
 export type PathProps = SVGProps<SVGPathElement>;
 
-export const Path = (props): PathProps => (
+export const Path: FC<PathProps> = (props) => (
 	<path fillRule="evenodd" {...props} />
 );

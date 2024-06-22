@@ -18,7 +18,7 @@ const ThemeSwitcher = () => {
 
 	return (
 		<Button
-			isIconOnly
+			isIconOnly={true}
 			size="sm"
 			variant="bordered"
 			className={styles.button}

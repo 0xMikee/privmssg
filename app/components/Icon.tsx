@@ -11,6 +11,7 @@ export enum IconId {
 
 export type IconProps = {
 	id: IconId;
+	className?: string;
 };
 
 const getIconId = (id: IconId) => {

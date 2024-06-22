@@ -7,12 +7,23 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true
-		}
+		},
+		"ignore": [
+			"build/**",
+			"node_modules/**",
+			"dist/**",
+			"public/**"
+		]
 	},
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false,
-		"ignore": [],
+		"ignore": [
+			"build/**",
+			"node_modules/**",
+			"dist/**",
+			"public/**"
+		],
 		"attributePosition": "auto",
 		"indentStyle": "tab",
 		"indentWidth": 2,
