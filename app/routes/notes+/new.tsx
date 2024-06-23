@@ -28,9 +28,8 @@ export const action: ActionFunction = async ({ request }) => {
 				shouldExpireAfterViewing,
 			},
 		});
-		const redirectPath = `/notes/${note.id}/share`;
-		console.log("Redirecting to:", redirectPath); // Log the redirect path
-		return redirect(redirectPath);
+
+		return redirect(`/notes/${note.id}/share`);
 	} catch (error) {
 		console.error("Error creating note:", error);
 		return new Response("Failed to create note", { status: 500 });

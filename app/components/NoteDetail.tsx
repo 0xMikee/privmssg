@@ -165,14 +165,14 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 
 			{isNoteVisible && (
 				<div className={styles.noteDetail}>
-					<Input readOnly={true} label="Title" value={note.title} />
-					<Textarea readOnly={true} label="Description" value={note.content} />
+					<Input readOnly label="Title" value={note.title} />
+					<Textarea readOnly label="Description" value={note.content} />
 					{note.shouldExpireAfterViewing ? (
-						<Input isReadOnly={true} label="Expires:" placeholder="Now" color="warning" />
+						<Input isReadOnly label="Expires:" placeholder="Now" color="warning" />
 					) : (
 						<Input
 							color="warning"
-							isReadOnly={true}
+							isReadOnly
 							label="Expires:"
 							defaultValue={
 								note.expiryDate
