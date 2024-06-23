@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { Button } from "@nextui-org/react";
-import { Link } from "@remix-run/react";
+import { Link, useFetcher } from "@remix-run/react";
 import styles from "./NotePage.module.scss";
 
 type NotePageProps = {
@@ -10,6 +11,23 @@ type NotePageProps = {
 };
 
 const NotePage = ({ notes }: NotePageProps) => {
+	const fetcher = useFetcher();
+
+	useEffect(() => {
+		const viewedNotes = JSON.parse(localStorage.getItem("viewedNotes") || "[]");
+
+		if (viewedNotes.length > 0) {
+			viewedNotes.forEach((noteId: string) => {
+				fetcher.submit(
+					{ noteId },
+					{ method: "post", action: "/api/deleteNote" }
+				);
+			});
+
+			localStorage.removeItem("viewedNotes");
+		}
+	}, [fetcher]);
+
 	if (!notes) return null;
 
 	return (

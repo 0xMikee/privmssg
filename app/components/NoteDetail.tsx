@@ -12,13 +12,11 @@ import {
 	useDisclosure,
 } from "@nextui-org/react";
 import {
-	Link,
 	useFetcher,
 	useNavigate,
 	useSearchParams,
 } from "@remix-run/react";
 import styles from "./NoteDetail.module.scss";
-import {redirect} from "@remix-run/node";
 
 type NoteDetailProps = {
 	note: {
@@ -31,11 +29,12 @@ type NoteDetailProps = {
 	};
 };
 
-export const NoteDetail = ({ note }:  NoteDetailProps) => {
+export const NoteDetail = ({ note }: NoteDetailProps) => {
 	const [enteredPassword, setEnteredPassword] = useState("");
 	const [isPasswordCorrect, setIsPasswordCorrect] = useState(!note.password);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+	const [isNoteVisible, setIsNoteVisible] = useState(!note.password && !note.shouldExpireAfterViewing);
 	const { isOpen, onOpen, onClose } = useDisclosure({
 		isOpen: !!note.password,
 	});
@@ -51,22 +50,14 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 				{ noteId: note.id },
 				{ method: "post", action: "/api/deleteNote" },
 			);
-			navigate("/notes");
 		} else if (searchParams.get("created") === "true" && note.password) {
 			onOpen();
 		} else if (isPasswordCorrect && note.shouldExpireAfterViewing) {
 			setIsConfirmOpen(true);
+		} else if (isPasswordCorrect && !note.shouldExpireAfterViewing) {
+			setIsNoteVisible(true);
 		}
-	}, [
-		note.id,
-		note.shouldExpireAfterViewing,
-		fetcher,
-		navigate,
-		searchParams,
-		note.password,
-		isPasswordCorrect,
-		onOpen,
-	]);
+	}, [note.id, note.shouldExpireAfterViewing, isPasswordCorrect]);
 
 	const handlePasswordSubmit = () => {
 		if (note.password && enteredPassword === note.password) {
@@ -74,6 +65,8 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 			onClose();
 			if (note.shouldExpireAfterViewing) {
 				setIsConfirmOpen(true);
+			} else {
+				setIsNoteVisible(true);
 			}
 		} else {
 			setErrorMessage("Incorrect password. Please try again.");
@@ -82,6 +75,7 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 
 	const handleViewNote = () => {
 		setIsConfirmOpen(false);
+		setIsNoteVisible(true);
 		if (note.shouldExpireAfterViewing) {
 			const viewedNotes = JSON.parse(
 				localStorage.getItem("viewedNotes") || "[]",
@@ -90,11 +84,6 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 				"viewedNotes",
 				JSON.stringify([...viewedNotes, note.id]),
 			);
-			fetcher.submit(
-				{ noteId: note.id },
-				{ method: "post", action: "/api/deleteNote" },
-			);
-			navigate("/notes");
 		}
 	};
 
@@ -102,13 +91,13 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 		setEnteredPassword("");
 		setErrorMessage("");
 		onClose();
-		navigate("/notes")
+		navigate("/notes");
 	};
 
 	return (
 		<>
 			{note.password && !isPasswordCorrect && (
-				<Modal isOpen={isOpen} onClose={safeOnClose} backdrop="blur" className={styles.modal}>
+				<Modal isOpen={isOpen} onClose={safeOnClose} backdrop="blur" isDismissable className={styles.modal}>
 					<ModalContent>
 						<>
 							<ModalHeader>Password Required</ModalHeader>
@@ -145,8 +134,8 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 				</Modal>
 			)}
 
-			{isConfirmOpen && isPasswordCorrect && (
-				<Modal isOpen={isConfirmOpen} backdrop="blur">
+			{isConfirmOpen && isPasswordCorrect && !isNoteVisible && (
+				<Modal isOpen={isConfirmOpen} backdrop="blur" className={styles.modal} isDismissable>
 					<ModalContent>
 						<>
 							<ModalHeader>Confirm Viewing</ModalHeader>
@@ -161,7 +150,7 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 									color="danger"
 									size="sm"
 									variant="light"
-									onPress={() => setIsConfirmOpen(false)}
+									onPress={safeOnClose}
 								>
 									Cancel
 								</Button>
@@ -174,7 +163,7 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 				</Modal>
 			)}
 
-			{isPasswordCorrect && !isConfirmOpen && (
+			{isNoteVisible && (
 				<div className={styles.noteDetail}>
 					<Input readOnly={true} label="Title" value={note.title} />
 					<Textarea readOnly={true} label="Description" value={note.content} />
@@ -191,7 +180,6 @@ export const NoteDetail = ({ note }:  NoteDetailProps) => {
 							}
 						/>
 					)}
-
 				</div>
 			)}
 		</>
