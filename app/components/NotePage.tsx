@@ -17,12 +17,12 @@ const NotePage = ({ notes }: NotePageProps) => {
 		const viewedNotes = JSON.parse(localStorage.getItem("viewedNotes") || "[]");
 
 		if (viewedNotes.length > 0) {
-			viewedNotes.forEach((noteId: string) => {
+			for (const noteId of viewedNotes) {
 				fetcher.submit(
 					{ noteId },
 					{ method: "post", action: "/api/deleteNote" }
 				);
-			});
+			}
 
 			localStorage.removeItem("viewedNotes");
 		}
