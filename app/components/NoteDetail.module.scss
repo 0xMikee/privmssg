@@ -1,3 +1,5 @@
+@import "../styles/1_core/breakpoints";
+
 .noteDetail {
   display: grid;
   gap: 12px;
@@ -6,6 +8,11 @@
 .modal {
   align-self: center;
   margin: 0 12px;
+
+  @media only screen and (max-width: $breakpoint-middle) {
+    margin-top: 140px;
+    align-self: start;
+  }
 
   [aria-label~="Close"] {
     display: none;
