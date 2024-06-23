@@ -30,7 +30,7 @@ const NotePage = ({ notes }: NotePageProps) => {
 							key={note.id}
 							className={styles.note}
 						>
-							<Button size="sm" variant="bordered">
+							<Button size="sm">
 								{note.title}
 							</Button>
 						</Link>

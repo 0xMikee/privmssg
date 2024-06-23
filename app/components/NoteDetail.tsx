@@ -18,6 +18,7 @@ import {
 	useSearchParams,
 } from "@remix-run/react";
 import styles from "./NoteDetail.module.scss";
+import {redirect} from "@remix-run/node";
 
 type NoteDetailProps = {
 	note: {
@@ -30,7 +31,7 @@ type NoteDetailProps = {
 	};
 };
 
-export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
+export const NoteDetail = ({ note }:  NoteDetailProps) => {
 	const [enteredPassword, setEnteredPassword] = useState("");
 	const [isPasswordCorrect, setIsPasswordCorrect] = useState(!note.password);
 	const [errorMessage, setErrorMessage] = useState("");
@@ -101,12 +102,13 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 		setEnteredPassword("");
 		setErrorMessage("");
 		onClose();
+		navigate("/notes")
 	};
 
 	return (
 		<>
 			{note.password && !isPasswordCorrect && (
-				<Modal isOpen={isOpen} onClose={safeOnClose} backdrop="blur">
+				<Modal isOpen={isOpen} onClose={safeOnClose} backdrop="blur" className={styles.modal}>
 					<ModalContent>
 						<>
 							<ModalHeader>Password Required</ModalHeader>
@@ -121,16 +123,14 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 								{errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 							</ModalBody>
 							<ModalFooter>
-								<Link to="/notes">
-									<Button
-										color="danger"
-										size="sm"
-										variant="light"
-										onPress={safeOnClose}
-									>
-										Close
-									</Button>
-								</Link>
+								<Button
+									color="danger"
+									size="sm"
+									variant="light"
+									onPress={safeOnClose}
+								>
+									Close
+								</Button>
 								<Button
 									color="success"
 									variant="bordered"
@@ -157,16 +157,14 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 								</p>
 							</ModalBody>
 							<ModalFooter>
-								<Link to="/notes">
-									<Button
-										color="danger"
-										size="sm"
-										variant="light"
-										onPress={() => setIsConfirmOpen(false)}
-									>
-										Cancel
-									</Button>
-								</Link>
+								<Button
+									color="danger"
+									size="sm"
+									variant="light"
+									onPress={() => setIsConfirmOpen(false)}
+								>
+									Cancel
+								</Button>
 								<Button color="warning" variant="bordered" size="sm" onClick={handleViewNote}>
 									View Note
 								</Button>
