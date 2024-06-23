@@ -46,7 +46,7 @@ export const ErrorBoundary = () => (
 						or it expired, or maybe it never existed.
 					</p>
 					<Link to="/">
-						<Button size="sm" color="success" type="submit">
+						<Button size="sm" color="success" variant="bordered">
 							Go to Home
 						</Button>
 					</Link>

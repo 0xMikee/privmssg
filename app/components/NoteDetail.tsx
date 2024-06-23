@@ -132,7 +132,8 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 									</Button>
 								</Link>
 								<Button
-									color="primary"
+									color="success"
+									variant="bordered"
 									size="sm"
 									onPress={handlePasswordSubmit}
 								>
@@ -166,7 +167,7 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 										Cancel
 									</Button>
 								</Link>
-								<Button color="primary" size="sm" onClick={handleViewNote}>
+								<Button color="warning" variant="bordered" size="sm" onClick={handleViewNote}>
 									View Note
 								</Button>
 							</ModalFooter>
@@ -192,6 +193,7 @@ export const NoteDetail: React.FC<NoteDetailProps> = ({ note }) => {
 							}
 						/>
 					)}
+
 				</div>
 			)}
 		</>

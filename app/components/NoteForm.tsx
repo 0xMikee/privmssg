@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Input, Textarea, Button } from "@nextui-org/react";
-import { Select, SelectItem } from "@nextui-org/select";
-import { Icon, IconId } from "~/components/Icon";
-import { Form } from "@remix-run/react";
+import {useEffect, useState} from "react";
+import {Button, Input, Textarea} from "@nextui-org/react";
+import {Select, SelectItem} from "@nextui-org/select";
+import {Icon, IconId} from "~/components/Icon";
+import {Form} from "@remix-run/react";
 import styles from "./NoteForm.module.scss";
 
 const NoteForm = () => {
@@ -11,6 +11,9 @@ const NoteForm = () => {
 	const [expiration, setExpiration] = useState("");
 	const [password, setPassword] = useState("");
 	const [isButtonDisabled, setButtonDisabled] = useState(true);
+	const [isVisible, setIsVisible] = useState(false);
+
+	const toggleVisibility = () => setIsVisible(!isVisible);
 
 	useEffect(() => {
 		const isFormValid =
@@ -41,7 +44,7 @@ const NoteForm = () => {
 				onChange={(e) => setDescription(e.target.value)}
 			/>
 			<Input
-				type="password"
+				type={isVisible ? "text" : "password"}
 				name="password"
 				label="Password (optional)"
 				size="sm"
@@ -49,7 +52,17 @@ const NoteForm = () => {
 				value={password}
 				className={styles.passwordInput}
 				onChange={(e) => setPassword(e.target.value)}
+				endContent={
+					<Button size="sm" variant="bordered" isIconOnly type="button" className={styles.passwordVisibleBtn} onClick={toggleVisibility}>
+						{isVisible ? (
+							<Icon id={IconId.EYE} className={styles.passwordIcon}/>
+						) : (
+							<Icon id={IconId.EYEOFF} className={styles.passwordIcon} />
+						)}
+					</Button>
+				}
 			/>
+			<div className={styles.noteButtons}>
 			<Select
 				required={true}
 				size="sm"
@@ -81,13 +94,15 @@ const NoteForm = () => {
 			</Select>
 			<Button
 				type="submit"
-				size="sm"
+				size="lg"
 				color="success"
 				isDisabled={isButtonDisabled}
 				variant="flat"
+				className={styles.linkBtn}
 			>
 				Generate link
 			</Button>
+			</div>
 		</Form>
 	);
 };

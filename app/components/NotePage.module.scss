@@ -1,14 +1,15 @@
 .notePage {
   display: grid;
+  gap: 12px;
 }
 
 .header {
   display: flex;
+  justify-content: space-between;
 }
 
 .content {
   display: grid;
-  justify-content: center;
   align-items: center;
   gap: 12px;
 }

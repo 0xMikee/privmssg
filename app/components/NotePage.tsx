@@ -14,13 +14,15 @@ const NotePage = ({ notes }: NotePageProps) => {
 
 	return (
 		<div className={styles.notePage}>
-			<div className={styles.header}>Private Messages:</div>
-			<div className={styles.content}>
+			<div className={styles.header}>
+				Private Messages:
 				<Link to="/notes/new">
-					<Button color="success" size="sm">
+					<Button color="success" variant="bordered" size="sm">
 						Create New Private Message
 					</Button>
 				</Link>
+			</div>
+			<div className={styles.content}>
 				<div className={styles.notes}>
 					{notes.map((note) => (
 						<Link
