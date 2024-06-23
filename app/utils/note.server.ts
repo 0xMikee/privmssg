@@ -11,7 +11,6 @@ export const deleteExpiredNotes = async () => {
 				},
 			},
 		});
-		console.log("Expired notes deleted successfully.");
 	} catch (error) {
 		console.error("Error deleting expired notes:", error);
 	}

@@ -97,7 +97,7 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 	return (
 		<>
 			{note.password && !isPasswordCorrect && (
-				<Modal isOpen={isOpen} onClose={safeOnClose} backdrop="blur" isDismissable className={styles.modal}>
+				<Modal isOpen={isOpen} backdrop="blur" isDismissable className={styles.modal}>
 					<ModalContent>
 						<>
 							<ModalHeader>Password Required</ModalHeader>

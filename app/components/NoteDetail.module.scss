@@ -6,4 +6,8 @@
 .modal {
   align-self: center;
   margin: 0 12px;
+
+  [aria-label~="Close"] {
+    display: none;
+  }
 }
