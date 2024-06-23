@@ -12,6 +12,12 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 
+# Install necessary packages
+RUN apt-get update && apt-get install -y openssl sqlite3 curl
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
