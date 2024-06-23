@@ -2,24 +2,7 @@ import { redirect } from "@remix-run/node";
 import NoteForm from "~/components/NoteForm";
 import { prisma } from "~/utils/prisma.server";
 import type { ActionFunction } from "@remix-run/node";
-
-const getExpirationDate = (duration: string) => {
-	const now = new Date();
-	switch (duration) {
-		case "viewing":
-			return null; // Return null for viewing
-		case "1hr":
-			return new Date(now.getTime() + 60 * 60 * 1000);
-		case "5hrs":
-			return new Date(now.getTime() + 5 * 60 * 60 * 1000);
-		case "1day":
-			return new Date(now.getTime() + 24 * 60 * 60 * 1000);
-		case "1week":
-			return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-		default:
-			return now;
-	}
-};
+import {getExpirationDate} from "~/utils/getExpirationDate";
 
 export const action: ActionFunction = async ({ request }) => {
 	const formData = await request.formData();
@@ -45,7 +28,9 @@ export const action: ActionFunction = async ({ request }) => {
 				shouldExpireAfterViewing,
 			},
 		});
-		return redirect(`/notes/${note.id}`);
+		const redirectPath = `/notes/${note.id}/share`;
+		console.log("Redirecting to:", redirectPath); // Log the redirect path
+		return redirect(redirectPath);
 	} catch (error) {
 		console.error("Error creating note:", error);
 		return new Response("Failed to create note", { status: 500 });

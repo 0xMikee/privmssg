@@ -122,7 +122,6 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 								</Button>
 								<Button
 									color="success"
-									variant="bordered"
 									size="sm"
 									onPress={handlePasswordSubmit}
 								>
@@ -141,8 +140,9 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 							<ModalHeader>Confirm Viewing</ModalHeader>
 							<ModalBody>
 								<p>
-									Viewing this note will delete it. Are you sure you want to
-									proceed?
+									Viewing this message will delete it.
+									<br/>
+									Are you sure you want to proceed?
 								</p>
 							</ModalBody>
 							<ModalFooter>
@@ -168,9 +168,10 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 					<Input readOnly={true} label="Title" value={note.title} />
 					<Textarea readOnly={true} label="Description" value={note.content} />
 					{note.shouldExpireAfterViewing ? (
-						<Input isReadOnly={true} label="Expires:" placeholder="Now" />
+						<Input isReadOnly={true} label="Expires:" placeholder="Now" color="warning" />
 					) : (
 						<Input
+							color="warning"
 							isReadOnly={true}
 							label="Expires:"
 							defaultValue={

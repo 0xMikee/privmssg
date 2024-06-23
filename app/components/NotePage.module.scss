@@ -6,6 +6,7 @@
 .header {
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
 }
 
 .content {
@@ -16,6 +17,7 @@
 
 .notes {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 

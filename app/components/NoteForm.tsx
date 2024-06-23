@@ -43,6 +43,7 @@ const NoteForm = () => {
 				className={styles.textArea}
 				onChange={(e) => setDescription(e.target.value)}
 			/>
+			<div className={styles.noteButtons}>
 			<Input
 				type={isVisible ? "text" : "password"}
 				name="password"
@@ -62,7 +63,6 @@ const NoteForm = () => {
 					</Button>
 				}
 			/>
-			<div className={styles.noteButtons}>
 			<Select
 				required={true}
 				size="sm"
@@ -92,6 +92,7 @@ const NoteForm = () => {
 					1 Week
 				</SelectItem>
 			</Select>
+			</div>
 			<Button
 				type="submit"
 				size="lg"
@@ -102,7 +103,6 @@ const NoteForm = () => {
 			>
 				Generate link
 			</Button>
-			</div>
 		</Form>
 	);
 };

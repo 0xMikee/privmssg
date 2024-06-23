@@ -5,11 +5,6 @@
   gap: 12px;
 }
 
-.select {
-  grid-area: select;
-  border-color: blue;
-}
-
 .textArea {
   resize: vertical;
 
@@ -22,28 +17,34 @@
   }
 }
 
+.select {
+  grid-area: select;
+  border-color: blue;
+}
+
 .timeIcon {
   width: 20px;
   height: 20px;
 }
 
-.linkBtn {
-  grid-area: linkBtn;
+.passwordInput {
+  grid-area: password;
 }
 
 .noteButtons {
   display: grid;
   gap: 20px;
   grid-template:
-          " select linkBtn" max-content
+          " select password" max-content
           / 1fr    1fr;
   justify-content: space-between;
   align-items: center;
 
   @media only screen and (max-width: $breakpoint-middle) {
+    gap: 12px;
     grid-template:
           " select  " max-content
-          " linkBtn " max-content
+          " password " max-content
           / 1fr;
   }
 }

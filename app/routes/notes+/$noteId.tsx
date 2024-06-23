@@ -5,6 +5,7 @@ import { deleteExpiredNotes } from "~/utils/note.server";
 import { NoteDetail } from "~/components/NoteDetail";
 import { GeneralErrorBoundary } from "~/components/GeneralErrorBoundary";
 import { Button } from "@nextui-org/react";
+import {Outlet} from "react-router";
 
 export const loader: LoaderFunction = async ({ params }) => {
 	const noteId = params.noteId;
@@ -30,7 +31,10 @@ const NoteDetailPage = () => {
 	const { note } = useLoaderData<typeof loader>();
 
 	return (
-		<div>{note ? <NoteDetail note={note} /> : <p>Note not found.</p>}</div>
+		<>
+			<div>{note ? <NoteDetail note={note} /> : <p>Note not found.</p>}</div>
+			<Outlet />
+		</>
 	);
 };
 

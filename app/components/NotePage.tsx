@@ -33,7 +33,7 @@ const NotePage = ({ notes }: NotePageProps) => {
 	return (
 		<div className={styles.notePage}>
 			<div className={styles.header}>
-				Private Messages:
+				Messages:
 				<Link to="/notes/new">
 					<Button color="success" variant="bordered" size="sm">
 						Create New Private Message

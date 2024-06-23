@@ -1,0 +1,20 @@
+@import "../styles/1_core/breakpoints";
+
+.modal {
+  align-self: center;
+  margin: 0 12px;
+
+  @media only screen and (max-width: $breakpoint-middle) {
+    margin-top: 140px;
+    align-self: start;
+  }
+
+  [aria-label~="Close"] {
+    display: none;
+  }
+
+  footer {
+    justify-content: space-between;
+  }
+}
+
