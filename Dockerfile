@@ -41,9 +41,6 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y openssl sqlite3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Copy built application from build stage
-COPY --from=build /app /app
-
 # Ensure data directory exists
 RUN mkdir -p /data
 VOLUME /data
