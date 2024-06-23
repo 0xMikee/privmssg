@@ -6,10 +6,9 @@ import {
     ModalFooter,
     Button,
     Input,
-    Select,
-    SelectItem, ModalContent
+    ModalContent
 } from "@nextui-org/react";
-import { Form, useNavigate } from "@remix-run/react";
+import { useNavigate } from "@remix-run/react";
 import styles from "./ShareModal.module.scss";
 
 type ShareModalProps = {
