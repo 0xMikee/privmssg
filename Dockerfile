@@ -1,63 +1,72 @@
-# syntax = docker/dockerfile:1
-
-# Adjust BUN_VERSION as desired
+# Base Bun image
 ARG BUN_VERSION=1.1.15
 FROM oven/bun:${BUN_VERSION}-slim as base
 
-LABEL fly_launch_runtime="Remix/Prisma"
+# Set for base and all layers that inherit from it
+ENV NODE_ENV=production
 
-# Remix/Prisma app lives here
-WORKDIR /app
+# Install necessary packages
+RUN apt-get update && apt-get install -y openssl sqlite3
 
-# Set production environment
-ENV NODE_ENV="production"
+# Install all dependencies including dev dependencies
+FROM base as deps
 
-# Throw-away build stage to reduce size of final image
+WORKDIR /myapp
+
+# Copy necessary files for dependency installation
+ADD bun.lockb package.json .npmrc ./
+# Install dependencies using Bun
+RUN bun install --all
+
+# Setup production node_modules
+FROM base as production-deps
+
+WORKDIR /myapp
+
+# Copy node_modules from deps stage
+COPY --from=deps /myapp/node_modules /myapp/node_modules
+ADD bun.lockb package.json .npmrc ./
+# Prune dev dependencies
+RUN bun install --production
+
+# Build the app
 FROM base as build
 
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential openssl pkg-config python-is-python3
+WORKDIR /myapp
 
-# Install node modules
-COPY --link bun.lockb package.json ./
-RUN bun install
+# Copy node_modules from deps stage
+COPY --from=deps /myapp/node_modules /myapp/node_modules
 
-# Generate Prisma Client
-COPY --link prisma .
+# Copy Prisma files and generate client
+ADD prisma .
 RUN bunx prisma generate
 
-# Copy application code
-COPY --link . .
+# Copy the rest of the application and build
+ADD . .
+RUN bun build
 
-# Build application
-RUN bun run build
-
-# Remove development dependencies
-RUN rm -rf node_modules && \
-    bun install --ci
-
-# Final stage for app image
+# Final stage for production
 FROM base
 
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y openssl sqlite3 && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# Environment variables for production
+ENV DATABASE_URL=file:/data/sqlite.db
+ENV PORT="3000"
+ENV NODE_ENV="production"
 
-# Copy built application
-COPY --from=build /app /app
-
-# Setup sqlite3 on a separate volume
-RUN mkdir -p /data
-VOLUME /data
-
+# Add a shortcut for connecting to the database CLI
 RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 
-RUN chmod +x /app/docker-entrypoint.js
+WORKDIR /myapp
 
-ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+# Copy node_modules and built files from previous stages
+COPY --from=production-deps /myapp/node_modules /myapp/node_modules
+COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 
-EXPOSE 3000
-ENV DATABASE_URL="file:///data/sqlite.db"
-CMD [ "bun", "run", "start" ]
+COPY --from=build /myapp/build /myapp/build
+COPY --from=build /myapp/public /myapp/public
+COPY --from=build /myapp/package.json /myapp/package.json
+COPY --from=build /myapp/start.sh /myapp/start.sh
+COPY --from=build /myapp/prisma /myapp/prisma
+
+# Set entrypoint to start the application
+ENTRYPOINT ["./start.sh"]
