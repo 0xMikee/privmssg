@@ -43,7 +43,7 @@ RUN bunx prisma generate
 
 # Copy the rest of the application and build
 ADD . .
-RUN bun build
+RUN bun run build
 
 # Final stage for production
 FROM base
