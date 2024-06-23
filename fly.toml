@@ -23,3 +23,23 @@ app = 'privmssg'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[checks]
+  [checks.name_of_your_http_check]
+    grace_period = "30s"
+    interval = "15s"
+    method = "get"
+    path = "/path/to/status"
+    port = 5500
+    timeout = "10s"
+    type = "http"
+    [checks.name_of_your_http_check.headers]
+      Content-Type = "application/json"
+      Authorization = "super-secret"
+
+  [checks.name_of_your_tcp_check]
+    grace_period = "30s"
+    interval = "15s"
+    port = 1234
+    timeout = "10s"
+    type = "tcp"
