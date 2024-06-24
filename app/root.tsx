@@ -42,7 +42,7 @@ export const App = ({ title = "PrivMssg - Secure private message" }) => {
 					<title>{title}</title>
 					<Links />
 				</head>
-				<body>
+				<body suppressHydrationWarning>
 					<NextUIProvider>
 						<Header />
 						<Layout>
@@ -58,3 +58,7 @@ export const App = ({ title = "PrivMssg - Secure private message" }) => {
 };
 
 export default App;
+
+export function HydrateFallback() {
+	return <h1>Loading...</h1>
+}

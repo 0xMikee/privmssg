@@ -16,26 +16,14 @@ primary_region = "ams"
   min_machines_running = 1
   processes = ["app"]
 
+[[http_service.checks]]
+  grace_period = "10s"
+  interval = "30s"
+  method = "GET"
+  timeout = "5s"
+  path = "/resources/healthcheck"
+
 [vm]
   memory = "2gb"
   cpu_kind = "shared"
   cpus = 4
-
-[[services]]
-  protocol = "tcp"
-  internal_port = 3000
-  processes = ["app"]
-
-  [[services.ports]]
-    port = 80
-    handlers = ["http"]
-    force_https = true
-
-  [[services.ports]]
-    port = 443
-    handlers = ["tls", "http"]
-
-  [services.concurrency]
-    type = "connections"
-    hard_limit = 25
-    soft_limit = 20
