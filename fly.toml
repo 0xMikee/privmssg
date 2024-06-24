@@ -48,7 +48,7 @@ primary_region = "ams"
 
   [[services.http_checks]]
     interval = "10s"
-    timeout = "2s"
+    timeout = "10s"
     grace_period = "5s"
     restart_limit = 0
     method = "get"
