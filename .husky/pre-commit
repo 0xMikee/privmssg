@@ -1,13 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-echo "Running biome format check..."
 bunx @biomejs/biome format ./ --write
-
-formatStatus=$?
-if [ $formatStatus -ne 0 ]; then
-  echo "Formatting issues found. Please fix them before committing."
-  exit 1
-fi
-
-echo "Code formatted successfully."
