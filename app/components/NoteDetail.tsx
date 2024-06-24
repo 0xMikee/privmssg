@@ -1,5 +1,4 @@
-import type React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Button,
 	Input,
@@ -11,7 +10,7 @@ import {
 	Textarea,
 	useDisclosure,
 } from "@nextui-org/react";
-import { useFetcher, useNavigate, useSearchParams } from "@remix-run/react";
+import { useFetcher, useNavigate, useSearchParams, useLocation } from "@remix-run/react";
 import styles from "./NoteDetail.module.scss";
 
 type NoteDetailProps = {
@@ -31,7 +30,7 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 	const [isNoteVisible, setIsNoteVisible] = useState(
-		!note.password && !note.shouldExpireAfterViewing,
+		!note.password && !note.shouldExpireAfterViewing
 	);
 	const { isOpen, onOpen, onClose } = useDisclosure({
 		isOpen: !!note.password,
@@ -39,14 +38,19 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 	const navigate = useNavigate();
 	const fetcher = useFetcher();
 	const [searchParams] = useSearchParams();
+	const location = useLocation();
 
 	useEffect(() => {
 		const viewedNotes = JSON.parse(localStorage.getItem("viewedNotes") || "[]");
 
+		if (location.pathname.includes("/share")) {
+			return;
+		}
+
 		if (viewedNotes.includes(note.id) && note.shouldExpireAfterViewing) {
 			fetcher.submit(
 				{ noteId: note.id },
-				{ method: "post", action: "/api/deleteNote" },
+				{ method: "post", action: "/api/deleteNote" }
 			);
 		} else if (searchParams.get("created") === "true" && note.password) {
 			onOpen();
@@ -55,7 +59,7 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 		} else if (isPasswordCorrect && !note.shouldExpireAfterViewing) {
 			setIsNoteVisible(true);
 		}
-	}, [note.id, note.shouldExpireAfterViewing, isPasswordCorrect]);
+	}, [note.id, note.shouldExpireAfterViewing, isPasswordCorrect, location.pathname]);
 
 	const handlePasswordSubmit = () => {
 		if (note.password && enteredPassword === note.password) {
@@ -76,11 +80,11 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 		setIsNoteVisible(true);
 		if (note.shouldExpireAfterViewing) {
 			const viewedNotes = JSON.parse(
-				localStorage.getItem("viewedNotes") || "[]",
+				localStorage.getItem("viewedNotes") || "[]"
 			);
 			localStorage.setItem(
 				"viewedNotes",
-				JSON.stringify([...viewedNotes, note.id]),
+				JSON.stringify([...viewedNotes, note.id])
 			);
 		}
 	};
