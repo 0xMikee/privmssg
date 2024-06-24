@@ -116,34 +116,30 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 					className={styles.modal}
 				>
 					<ModalContent>
-							<ModalHeader>Password Required</ModalHeader>
-							<ModalBody>
-								<Input
-									label="Password"
-									type="password"
-									value={enteredPassword}
-									onChange={(e) => setEnteredPassword(e.target.value)}
-									placeholder="Enter password"
-								/>
-								{errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-							</ModalBody>
-							<ModalFooter>
-								<Button
-									color="danger"
-									size="sm"
-									variant="light"
-									onPress={safeOnClose}
-								>
-									Close
-								</Button>
-								<Button
-									color="success"
-									size="sm"
-									onPress={handlePasswordSubmit}
-								>
-									Submit
-								</Button>
-							</ModalFooter>
+						<ModalHeader>Password Required</ModalHeader>
+						<ModalBody>
+							<Input
+								label="Password"
+								type="password"
+								value={enteredPassword}
+								onChange={(e) => setEnteredPassword(e.target.value)}
+								placeholder="Enter password"
+							/>
+							{errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+						</ModalBody>
+						<ModalFooter>
+							<Button
+								color="danger"
+								size="sm"
+								variant="light"
+								onPress={safeOnClose}
+							>
+								Close
+							</Button>
+							<Button color="success" size="sm" onPress={handlePasswordSubmit}>
+								Submit
+							</Button>
+						</ModalFooter>
 					</ModalContent>
 				</Modal>
 			)}
@@ -156,32 +152,32 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 					isDismissable
 				>
 					<ModalContent>
-							<ModalHeader>Confirm Viewing</ModalHeader>
-							<ModalBody>
-								<p>
-									Viewing this message will delete it.
-									<br />
-									Are you sure you want to proceed?
-								</p>
-							</ModalBody>
-							<ModalFooter>
-								<Button
-									color="danger"
-									size="sm"
-									variant="light"
-									onPress={safeOnClose}
-								>
-									Cancel
-								</Button>
-								<Button
-									color="warning"
-									variant="bordered"
-									size="sm"
-									onClick={handleViewNote}
-								>
-									View Note
-								</Button>
-							</ModalFooter>
+						<ModalHeader>Confirm Viewing</ModalHeader>
+						<ModalBody>
+							<p>
+								Viewing this message will delete it.
+								<br />
+								Are you sure you want to proceed?
+							</p>
+						</ModalBody>
+						<ModalFooter>
+							<Button
+								color="danger"
+								size="sm"
+								variant="light"
+								onPress={safeOnClose}
+							>
+								Cancel
+							</Button>
+							<Button
+								color="warning"
+								variant="bordered"
+								size="sm"
+								onClick={handleViewNote}
+							>
+								View Note
+							</Button>
+						</ModalFooter>
 					</ModalContent>
 				</Modal>
 			)}
