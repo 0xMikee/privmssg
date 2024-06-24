@@ -2,7 +2,7 @@ import { redirect } from "@remix-run/node";
 import NoteForm from "~/components/NoteForm";
 import { prisma } from "~/utils/prisma.server";
 import type { ActionFunction } from "@remix-run/node";
-import {getExpirationDate} from "~/utils/getExpirationDate";
+import { getExpirationDate } from "~/utils/getExpirationDate";
 
 export const action: ActionFunction = async ({ request }) => {
 	const formData = await request.formData();

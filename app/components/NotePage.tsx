@@ -20,7 +20,7 @@ const NotePage = ({ notes }: NotePageProps) => {
 			for (const noteId of viewedNotes) {
 				fetcher.submit(
 					{ noteId },
-					{ method: "post", action: "/api/deleteNote" }
+					{ method: "post", action: "/api/deleteNote" },
 				);
 			}
 
@@ -48,9 +48,7 @@ const NotePage = ({ notes }: NotePageProps) => {
 							key={note.id}
 							className={styles.note}
 						>
-							<Button size="sm">
-								{note.title}
-							</Button>
+							<Button size="sm">{note.title}</Button>
 						</Link>
 					))}
 				</div>

@@ -16,7 +16,9 @@ const HomePage = () => {
 				</Button>
 			</Link>
 			<Link to="/notes/new">
-				<Button size="sm" color="success" variant="bordered">Create a New Private Message</Button>
+				<Button size="sm" color="success" variant="bordered">
+					Create a New Private Message
+				</Button>
 			</Link>
 		</div>
 	);

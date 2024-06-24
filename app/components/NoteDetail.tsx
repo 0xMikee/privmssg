@@ -11,11 +11,7 @@ import {
 	Textarea,
 	useDisclosure,
 } from "@nextui-org/react";
-import {
-	useFetcher,
-	useNavigate,
-	useSearchParams,
-} from "@remix-run/react";
+import { useFetcher, useNavigate, useSearchParams } from "@remix-run/react";
 import styles from "./NoteDetail.module.scss";
 
 type NoteDetailProps = {
@@ -34,7 +30,9 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 	const [isPasswordCorrect, setIsPasswordCorrect] = useState(!note.password);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-	const [isNoteVisible, setIsNoteVisible] = useState(!note.password && !note.shouldExpireAfterViewing);
+	const [isNoteVisible, setIsNoteVisible] = useState(
+		!note.password && !note.shouldExpireAfterViewing,
+	);
 	const { isOpen, onOpen, onClose } = useDisclosure({
 		isOpen: !!note.password,
 	});
@@ -97,7 +95,12 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 	return (
 		<>
 			{note.password && !isPasswordCorrect && (
-				<Modal isOpen={isOpen} backdrop="blur" isDismissable className={styles.modal}>
+				<Modal
+					isOpen={isOpen}
+					backdrop="blur"
+					isDismissable
+					className={styles.modal}
+				>
 					<ModalContent>
 						<>
 							<ModalHeader>Password Required</ModalHeader>
@@ -134,14 +137,19 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 			)}
 
 			{isConfirmOpen && isPasswordCorrect && !isNoteVisible && (
-				<Modal isOpen={isConfirmOpen} backdrop="blur" className={styles.modal} isDismissable>
+				<Modal
+					isOpen={isConfirmOpen}
+					backdrop="blur"
+					className={styles.modal}
+					isDismissable
+				>
 					<ModalContent>
 						<>
 							<ModalHeader>Confirm Viewing</ModalHeader>
 							<ModalBody>
 								<p>
 									Viewing this message will delete it.
-									<br/>
+									<br />
 									Are you sure you want to proceed?
 								</p>
 							</ModalBody>
@@ -154,7 +162,12 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 								>
 									Cancel
 								</Button>
-								<Button color="warning" variant="bordered" size="sm" onClick={handleViewNote}>
+								<Button
+									color="warning"
+									variant="bordered"
+									size="sm"
+									onClick={handleViewNote}
+								>
 									View Note
 								</Button>
 							</ModalFooter>
@@ -168,7 +181,12 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 					<Input readOnly label="Title" value={note.title} />
 					<Textarea readOnly label="Description" value={note.content} />
 					{note.shouldExpireAfterViewing ? (
-						<Input isReadOnly label="Expires:" placeholder="Now" color="warning" />
+						<Input
+							isReadOnly
+							label="Expires:"
+							placeholder="Now"
+							color="warning"
+						/>
 					) : (
 						<Input
 							color="warning"

@@ -4,8 +4,8 @@ import { prisma } from "~/utils/prisma.server";
 import { deleteExpiredNotes } from "~/utils/note.server";
 import { NoteDetail } from "~/components/NoteDetail";
 import { GeneralErrorBoundary } from "~/components/GeneralErrorBoundary";
-import {Outlet} from "react-router";
-import {NoteNotFound} from "~/components/NoteNotFound";
+import { Outlet } from "react-router";
+import { NoteNotFound } from "~/components/NoteNotFound";
 
 export const loader: LoaderFunction = async ({ params }) => {
 	const noteId = params.noteId;
@@ -41,7 +41,7 @@ const NoteDetailPage = () => {
 export const ErrorBoundary = () => (
 	<GeneralErrorBoundary
 		statusHandlers={{
-			404: ({ params }) => <NoteNotFound noteId={params.noteId} />
+			404: ({ params }) => <NoteNotFound noteId={params.noteId} />,
 		}}
 	/>
 );

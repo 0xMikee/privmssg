@@ -11,22 +11,12 @@
 				"useExhaustiveDependencies": "off"
 			}
 		},
-		"ignore": [
-			"build/**",
-			"node_modules/**",
-			"dist/**",
-			"public/**"
-		]
+		"ignore": ["build/**", "node_modules/**", "dist/**", "public/**"]
 	},
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false,
-		"ignore": [
-			"build/**",
-			"node_modules/**",
-			"dist/**",
-			"public/**"
-		],
+		"ignore": ["build/**", "node_modules/**", "dist/**", "public/**"],
 		"attributePosition": "auto",
 		"indentStyle": "tab",
 		"indentWidth": 2,
