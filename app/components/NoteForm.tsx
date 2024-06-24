@@ -91,6 +91,9 @@ const NoteForm = () => {
 				<SelectItem key="1week" value="1week">
 					1 Week
 				</SelectItem>
+				<SelectItem key="1month" value="1month">
+					1 Month
+				</SelectItem>
 			</Select>
 			</div>
 			<Button

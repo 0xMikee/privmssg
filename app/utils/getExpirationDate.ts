@@ -11,6 +11,10 @@ export const getExpirationDate = (duration: string) => {
             return new Date(now.getTime() + 24 * 60 * 60 * 1000);
         case "1week":
             return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+        case "1month":
+            const nextMonth = new Date(now);
+            nextMonth.setMonth(now.getMonth() + 1);
+            return nextMonth;
         default:
             return now;
     }

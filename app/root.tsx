@@ -6,7 +6,6 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-import "./tailwind.css";
 import { NextUIProvider } from "@nextui-org/react";
 import {ThemeProvider as NextThemesProvider, useTheme} from "next-themes";
 import Header from "~/components/Header";
@@ -14,10 +13,11 @@ import Layout from "~/components/Layout";
 import "./styles/1_core/global.scss";
 import { rootLinks } from "~/utils/rootLinks";
 import type { MetaFunction } from "@remix-run/node";
+import {seo} from "~/utils/seo";
 
 export const meta: MetaFunction = () => {
 	const { theme } = useTheme();
-	console.log(theme)
+
 	return [
 		{ charset: "utf-8" },
 		{ name: "viewport", content: "width=device-width,initial-scale=1"},
@@ -25,6 +25,7 @@ export const meta: MetaFunction = () => {
             name: "theme-color",
             content: theme === "dark" ? "#000000" : "#ffffff",
         },
+		...seo,
 	];
 };
 
