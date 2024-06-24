@@ -8,7 +8,5 @@ type ErrorPageProps = {
 };
 
 export const ErrorPage = ({ pathname }: ErrorPageProps) => (
-	<div className={styles.errorPage}>
-		{pathname}
-	</div>
+	<div className={styles.errorPage}>{pathname}</div>
 );

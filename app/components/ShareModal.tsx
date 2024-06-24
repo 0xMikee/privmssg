@@ -43,17 +43,32 @@ const ShareModal = ({ note, baseUrl }: ShareModalProps) => {
 	};
 
 	return (
-		<Modal isOpen={isOpen} backdrop="blur" className={styles.modal} isDismissable>
+		<Modal
+			isOpen={isOpen}
+			backdrop="blur"
+			className={styles.modal}
+			isDismissable
+		>
 			<ModalContent>
 				<ModalHeader>Your private message link:</ModalHeader>
 				<ModalBody>
 					<Input readOnly variant="bordered" placeholder={baseUrl} />
 				</ModalBody>
 				<ModalFooter>
-					<Button color="primary" size="sm" onClick={copyToClipboard} variant="bordered">
+					<Button
+						color="primary"
+						size="sm"
+						onClick={copyToClipboard}
+						variant="bordered"
+					>
 						Copy Link
 					</Button>
-					<Button color="success" variant="bordered" size="sm" onClick={handleShare}>
+					<Button
+						color="success"
+						variant="bordered"
+						size="sm"
+						onClick={handleShare}
+					>
 						View message
 					</Button>
 				</ModalFooter>

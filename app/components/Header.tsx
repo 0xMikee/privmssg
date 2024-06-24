@@ -1,8 +1,8 @@
 import styles from "./Header.module.scss";
 import ThemeSwitcher from "~/components/ThemeSwitcher";
-import {Link} from "@remix-run/react";
-import {Icon, IconId} from "~/components/Icon";
-import {Button} from "@nextui-org/react";
+import { Link } from "@remix-run/react";
+import { Icon, IconId } from "~/components/Icon";
+import { Button } from "@nextui-org/react";
 
 const Header = () => {
 	return (
@@ -14,7 +14,10 @@ const Header = () => {
 					<div className={styles.logoText}>Message</div>
 				</Link>
 				<div className={styles.buttons}>
-					<a href="https://github.com/0xMikee/privmssg/tree/main" target="_blank">
+					<a
+						href="https://github.com/0xMikee/privmssg/tree/main"
+						target="_blank" rel="noreferrer"
+					>
 						<Button size="sm" variant="bordered" isIconOnly>
 							<Icon id={IconId.SOURCECODE} className={styles.sourceIcon} />
 						</Button>
