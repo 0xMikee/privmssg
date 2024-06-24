@@ -1,5 +1,7 @@
 export const getExpirationDate = (duration: string) => {
     const now = new Date();
+    const nextMonth = new Date(now);
+
     switch (duration) {
         case "viewing":
             return null;
@@ -12,7 +14,6 @@ export const getExpirationDate = (duration: string) => {
         case "1week":
             return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
         case "1month":
-            const nextMonth = new Date(now);
             nextMonth.setMonth(now.getMonth() + 1);
             return nextMonth;
         default:
