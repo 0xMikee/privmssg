@@ -116,7 +116,6 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 					className={styles.modal}
 				>
 					<ModalContent>
-						<>
 							<ModalHeader>Password Required</ModalHeader>
 							<ModalBody>
 								<Input
@@ -145,7 +144,6 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 									Submit
 								</Button>
 							</ModalFooter>
-						</>
 					</ModalContent>
 				</Modal>
 			)}
@@ -158,7 +156,6 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 					isDismissable
 				>
 					<ModalContent>
-						<>
 							<ModalHeader>Confirm Viewing</ModalHeader>
 							<ModalBody>
 								<p>
@@ -185,7 +182,6 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 									View Note
 								</Button>
 							</ModalFooter>
-						</>
 					</ModalContent>
 				</Modal>
 			)}
