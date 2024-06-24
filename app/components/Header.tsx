@@ -16,7 +16,8 @@ const Header = () => {
 				<div className={styles.buttons}>
 					<a
 						href="https://github.com/0xMikee/privmssg/tree/main"
-						target="_blank" rel="noreferrer"
+						target="_blank"
+						rel="noreferrer"
 					>
 						<Button size="sm" variant="bordered" isIconOnly>
 							<Icon id={IconId.SOURCECODE} className={styles.sourceIcon} />

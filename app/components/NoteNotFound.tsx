@@ -17,9 +17,7 @@ export const NoteNotFound = ({ noteId }: NoteNotFoundProps) => (
 		</Chip>
 		<div>doesn’t exist, or it expired, or maybe it never existed.</div>
 		<Link to="/">
-			<Button variant="bordered">
-				Go to Home
-			</Button>
+			<Button variant="bordered">Go to Home</Button>
 		</Link>
 	</div>
 );
