@@ -5,9 +5,6 @@
 bunx @biomejs/biome format ./ --write
 bunx @biomejs/biome lint ./ --write
 
-# Add any changes to the staging area
-git add -u
-
 # Check for unstaged changes
 if ! git diff-files --quiet --; then
   echo "There are unstaged changes after formatting. Please stage your changes before committing."
