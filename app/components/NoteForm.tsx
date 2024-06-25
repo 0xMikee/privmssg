@@ -31,10 +31,10 @@ const NoteForm = () => {
 				variant="bordered"
 				value={title}
 				onChange={(e) => setTitle(e.target.value)}
-				required={true}
+				required
 			/>
 			<Textarea
-				required={true}
+				required
 				size="sm"
 				name="description"
 				label="Description"
@@ -43,6 +43,7 @@ const NoteForm = () => {
 				className={styles.textArea}
 				onChange={(e) => setDescription(e.target.value)}
 			/>
+
 			<div className={styles.noteButtons}>
 				<Input
 					type={isVisible ? "text" : "password"}
@@ -71,7 +72,7 @@ const NoteForm = () => {
 					}
 				/>
 				<Select
-					required={true}
+					required
 					size="sm"
 					name="expires_after"
 					label="Expires after:"
