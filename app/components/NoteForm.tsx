@@ -5,7 +5,7 @@ import { Icon, IconId } from "~/components/Icon";
 import { Form } from "@remix-run/react";
 import styles from "./NoteForm.module.scss";
 
-const NoteForm = () => {
+export const NoteForm = () => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [expiration, setExpiration] = useState("");
@@ -116,5 +116,3 @@ const NoteForm = () => {
 		</Form>
 	);
 };
-
-export default NoteForm;

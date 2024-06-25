@@ -1,5 +1,5 @@
 import { redirect } from "@remix-run/node";
-import NoteForm from "~/components/NoteForm";
+import { NoteForm } from "~/components/NoteForm";
 import { prisma } from "~/utils/prisma.server";
 import type { ActionFunction } from "@remix-run/node";
 import { getExpirationDate } from "~/utils/getExpirationDate";
@@ -36,11 +36,13 @@ export const action: ActionFunction = async ({ request }) => {
 	}
 };
 
-export default function NewNote() {
+const NewNote = () => {
 	return (
 		<div>
 			<h1>New Note</h1>
 			<NoteForm />
 		</div>
 	);
-}
+};
+
+export default NewNote;
