@@ -60,5 +60,5 @@ export const App = ({ title = "PrivMssg - Secure private message" }) => {
 export default App;
 
 export function HydrateFallback() {
-	return <h1>Loading...</h1>
+	return <h1>Loading...</h1>;
 }
