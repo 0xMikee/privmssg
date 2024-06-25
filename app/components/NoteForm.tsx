@@ -43,7 +43,6 @@ const NoteForm = () => {
 				className={styles.textArea}
 				onChange={(e) => setDescription(e.target.value)}
 			/>
-
 			<div className={styles.noteButtons}>
 				<Input
 					type={isVisible ? "text" : "password"}
