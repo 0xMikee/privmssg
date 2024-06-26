@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async () => {
 const NotesIndex = () => {
 	const { notes } = useLoaderData<typeof loader>();
 
-	return <NotePage notes={notes} />;
+	return /*<NotePage notes={notes} />*/;
 };
 
 export default NotesIndex;

@@ -1,6 +1,6 @@
 .homePage {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 12px;
 }
@@ -8,4 +8,8 @@
 .noteIcon {
   width: 20px;
   height: 20px;
+}
+
+.createBtn {
+  margin-top: 40px;
 }
