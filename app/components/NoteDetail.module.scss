@@ -18,3 +18,19 @@
     display: none;
   }
 }
+
+.textArea {
+  resize: vertical;
+
+  div {
+    min-height: 420px;
+
+    @media only screen and (max-width: $breakpoint-middle) {
+      min-height: 320px;
+    }
+  }
+
+  [data-slot~="input"] {
+    min-height: 100%;
+  }
+}
