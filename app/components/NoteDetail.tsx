@@ -103,7 +103,7 @@ export const NoteDetail = ({ note }: NoteDetailProps) => {
 		setEnteredPassword("");
 		setErrorMessage("");
 		onClose();
-		navigate("/notes");
+		navigate("/");
 	};
 
 	return (
