@@ -18,3 +18,13 @@
   }
 }
 
+.shareUrl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  pre {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

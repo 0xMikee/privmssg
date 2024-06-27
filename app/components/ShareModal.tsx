@@ -7,8 +7,9 @@ import {
 	Button,
 	Input,
 	ModalContent,
+	Snippet,
 } from "@nextui-org/react";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, Link } from "@remix-run/react";
 import styles from "./ShareModal.module.scss";
 
 type ShareModalProps = {
@@ -34,14 +35,6 @@ const ShareModal = ({ note, baseUrl }: ShareModalProps) => {
 		closeModal();
 	};
 
-	const copyToClipboard = async () => {
-		try {
-			await navigator.clipboard.writeText(baseUrl);
-		} catch (err) {
-			console.error("Could not copy text: ", err);
-		}
-	};
-
 	return (
 		<Modal
 			isOpen={isOpen}
@@ -52,17 +45,21 @@ const ShareModal = ({ note, baseUrl }: ShareModalProps) => {
 			<ModalContent>
 				<ModalHeader>Your private message link:</ModalHeader>
 				<ModalBody>
-					<Input readOnly variant="bordered" placeholder={baseUrl} />
-				</ModalBody>
-				<ModalFooter>
-					<Button
-						color="primary"
+					<Snippet
+						symbol="🔗"
+						className={styles.shareUrl}
 						size="sm"
-						onClick={copyToClipboard}
 						variant="bordered"
 					>
-						Copy Link
-					</Button>
+						{baseUrl}
+					</Snippet>
+				</ModalBody>
+				<ModalFooter>
+					<Link to="/">
+						<Button color="primary" size="sm" variant="bordered">
+							Go Home
+						</Button>
+					</Link>
 					<Button
 						color="success"
 						variant="bordered"
